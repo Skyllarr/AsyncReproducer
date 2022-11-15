@@ -14,7 +14,6 @@ import javax.security.auth.message.module.ServerAuthModule;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.Map;
 
 import static javax.security.auth.message.AuthStatus.SEND_SUCCESS;
@@ -45,8 +44,6 @@ public class TestServerAuthModule implements ServerAuthModule {
 
         Callback[] callbacks;
 
-//        if (request.getParameter("doLogin") != null) {
-
             // For the test perform a login by directly "returning" the details of the authenticated user.
             // Normally credentials would be checked and the details fetched from some repository
 
@@ -56,11 +53,6 @@ public class TestServerAuthModule implements ServerAuthModule {
                 // the roles of the authenticated user
                 new GroupPrincipalCallback(clientSubject, new String[] { "architect" })
             };
-//        } else {
-//
-//            // The JASPIC protocol for "do nothing"
-//            callbacks = new Callback[] { new CallerPrincipalCallback(clientSubject, (Principal) null) };
-//        }
 
         try {
 
