@@ -34,7 +34,6 @@ import org.wildfly.security.auth.server.SecurityIdentity;
  *
  */
 @Stateless
-@RolesAllowed("architect")
 public class AsyncBean {
 
     @Inject
@@ -50,7 +49,7 @@ public class AsyncBean {
         }
 
         try {
-            asyncContext.getResponse().getWriter().write("async response" + securityContext.getCallerPrincipal());
+            asyncContext.getResponse().getWriter().write("async EJB caller principal is:  " + securityContext.getCallerPrincipal());
         } catch (IOException e) {
             e.printStackTrace();
         }
