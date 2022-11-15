@@ -23,9 +23,6 @@ public class AsyncServlet extends HttpServlet {
     @EJB
     private AsyncBean asyncBean;
 
-    @Inject
-    SecurityContext securityContext;
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
 
