@@ -20,7 +20,7 @@ import java.io.IOException;
  *
  * 
  */
-@WebServlet(urlPatterns = "/public/asyncServlet")
+@WebServlet(urlPatterns = "/public/asyncServlet", asyncSupported = true)
 @ServletSecurity(@HttpConstraint(rolesAllowed = "architect"))
 @DeclareRoles("architect")
 public class AsyncServlet extends HttpServlet {
@@ -44,8 +44,13 @@ public class AsyncServlet extends HttpServlet {
 //        asyncContext.setTimeout(5000);
 //
 //        asyncBean.doAsync(asyncContext);
-        response.getWriter().write("servlet response" + securityContext.getCallerPrincipal());
-        asyncBean.doAsync(response);
+//        response.getWriter().write("servlet response" + securityContext.getCallerPrincipal());
+//        asyncBean.doAsync(response);
+
+        AsyncContext asyncContext = request.startAsync();
+        asyncContext.setTimeout(5000);
+
+        asyncBean.doAsync(asyncContext);
     }
 
 }

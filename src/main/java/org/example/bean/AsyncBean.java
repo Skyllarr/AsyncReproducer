@@ -46,24 +46,42 @@ public class AsyncBean {
     @Inject
     TestIdentityStore ts;
 
-//    @Asynchronous
-    public void doAsync(HttpServletResponse asyncContext) {
-//
-//        try {
-//            sleep(1000);
-//        } catch (InterruptedException e) {
-//            interrupted();
-//        }
+    @Asynchronous
+    public void doAsync(AsyncContext asyncContext) {
 
         try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            interrupted();
+        }
 
-            ts.getClass().getName();
-            asyncContext.getWriter().write("async response" + securityContext.getCallerPrincipal() + "HA" + SecurityDomain.getCurrent().getCurrentSecurityIdentity().getPrincipal().getName());
+        try {
+            asyncContext.getResponse().getWriter().write("async response" + securityContext.getCallerPrincipal());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-//        asyncContext.complete();
+        asyncContext.complete();
     }
+
+////    @Asynchronous
+//    public void doAsync(HttpServletResponse asyncContext) {
+////
+////        try {
+////            sleep(1000);
+////        } catch (InterruptedException e) {
+////            interrupted();
+////        }
+//
+//        try {
+//
+//            ts.getClass().getName();
+//            asyncContext.getWriter().write("async response" + securityContext.getCallerPrincipal() + "HA" + SecurityDomain.getCurrent().getCurrentSecurityIdentity().getPrincipal().getName());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+////        asyncContext.complete();
+//    }
 
 }
