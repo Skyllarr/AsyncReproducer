@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-
-<jboss-web>
-    <security-domain>MyAppSecurity</security-domain>
-</jboss-web>

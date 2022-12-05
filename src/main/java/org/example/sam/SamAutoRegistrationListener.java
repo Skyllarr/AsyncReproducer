@@ -3,8 +3,8 @@ package org.example.sam;
 import org.example.common.BaseServletContextListener;
 import org.example.common.JaspicUtils;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.annotation.WebListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.annotation.WebListener;
 
 /**
  *

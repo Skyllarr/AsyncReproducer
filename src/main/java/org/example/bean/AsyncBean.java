@@ -4,20 +4,20 @@ import org.example.servlet.TestIdentityStore;
 //import org.jboss.ejb3.annotation.SecurityDomain;
 //import org.jboss.ejb3.annotation.SecurityDomain;
 
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
-import javax.ejb.Asynchronous;
-import javax.ejb.EJBContext;
-import javax.ejb.SessionContext;
-import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.application.Resource;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.security.enterprise.SecurityContext;
-import javax.servlet.AsyncContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.ejb.Asynchronous;
+import jakarta.ejb.EJBContext;
+import jakarta.ejb.SessionContext;
+import jakarta.ejb.Stateless;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.security.enterprise.SecurityContext;
+import jakarta.servlet.AsyncContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.http.HttpRequest;
 
@@ -39,6 +39,9 @@ public class AsyncBean {
     @Inject
     SecurityContext securityContext;
 
+//    @Resource
+//    EJBContext ejbCotext;
+
     @Asynchronous
     public void doAsync(AsyncContext asyncContext) {
 
@@ -49,11 +52,22 @@ public class AsyncBean {
         }
 
         try {
-            asyncContext.getResponse().getWriter().write("async EJB caller principal is:  " + securityContext.getCallerPrincipal());
+//            asyncContext.getResponse().getWriter().write(ejbCotext.getCallerPrincipal().getName() + "async EJB security context caller principal is:  " + securityContext.getCallerPrincipal() + "        AND     ");
+            asyncContext.getResponse().getWriter().write("async injected security context caller principal is:  " + securityContext.getCallerPrincipal().getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         asyncContext.complete();
+    }
+
+    public void doSync(HttpServletResponse response) {
+
+        try {
+//            response.getWriter().write("Sync EJB caller principal is:  " + securityContext.getCallerPrincipal() + "        AND     ");
+            response.getWriter().write("Sync EJB caller principal is:  " + "        AND     ");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
